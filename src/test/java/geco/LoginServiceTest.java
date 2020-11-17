@@ -6,6 +6,7 @@ import org.junit.Before;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//Classe de Test
 public class LoginServiceTest extends TestCase {
 
     private LoginService loginsExistants;
