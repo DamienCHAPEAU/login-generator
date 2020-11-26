@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">login-generator</a> &gt; <a href="index.source.html" class="el_package">geco</a> &gt; <span class="el_source">LoginService.java</span></div><h1>LoginService.java</h1><pre class="source lang-java linenums">package geco;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+
+/**
+ * Classe de service permettant la gestion des login
+ */
+public class LoginService {
+
+    private ArrayList&lt;String&gt; loginsExistants;
+
+    /**
+     * Construit un login service a partir de la liste des logins existants
+     * @param loginsExistants
+     */
+<span class="fc" id="L20">    public LoginService(String[] loginsExistants) {</span>
+<span class="fc" id="L21">        this.loginsExistants = new ArrayList&lt;String&gt;(Arrays.asList(loginsExistants));</span>
+<span class="fc" id="L22">        Collections.sort(this.loginsExistants);</span>
+<span class="fc" id="L23">    }</span>
+
+    /**
+     * Verifie si un login existe deja
+     *
+     * @param login le login a verifier
+     * @return true si le login existe deja, false sinon
+     */
+    public boolean loginExists(String login) {
+<span class="fc" id="L32">        return loginsExistants.contains(login);</span>
+    }
+
+    /**
+     * Ajoute un login a la liste des logins existants
+     * @param login le login a ajouter
+     */
+    public void addLogin(String login) {
+<span class="fc" id="L40">        loginsExistants.add(login);</span>
+<span class="fc" id="L41">    }</span>
+
+    /**
+     * Recherche tous les logins commençant par un meme prefixe
+     *
+     * @param pref le prefixe
+     * @return la liste des logins prefixes par &lt;em&gt;pref&lt;/em&gt;
+     */
+    public List&lt;String&gt; findAllLoginsStartingWith(String pref) {
+<span class="fc" id="L50">        ArrayList&lt;String&gt; loginsPrefixes = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        for (String login: loginsExistants) {</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">            if (login.startsWith(pref)) {</span>
+<span class="fc" id="L53">                loginsPrefixes.add(login);</span>
+            }
+<span class="fc" id="L55">        }</span>
+<span class="fc" id="L56">        return  loginsPrefixes;</span>
+    }
+
+    /**
+     * Recherche tous les logins
+     *
+     * @return la liste de tous les logins
+     */
+    public List&lt;String&gt; findAllLogins() {
+<span class="fc" id="L65">        return  loginsExistants;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
