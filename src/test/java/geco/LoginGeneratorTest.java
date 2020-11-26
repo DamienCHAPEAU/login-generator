@@ -22,6 +22,15 @@ public class LoginGeneratorTest extends TestCase {
         //CT1
         loginGenerator.generateLoginForNomAndPrenom("Durand","Paul");
         assertTrue(loginService.loginExists("PDUR"));
+        //CT2
+        loginGenerator.generateLoginForNomAndPrenom("Ralling","Jhon");
+        assertTrue(loginService.loginExists("JRAL2"));
+        //CT3
+        loginGenerator.generateLoginForNomAndPrenom("Rolling","Jean");
+        assertTrue(loginService.loginExists("JRAL1"));
+        //CT4
+        loginGenerator.generateLoginForNomAndPrenom("Dùrand","Paul");
+        assertTrue(loginService.loginExists("PDUR"));
     }
 
 }

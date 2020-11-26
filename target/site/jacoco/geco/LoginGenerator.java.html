@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">login-generator</a> &gt; <a href="index.source.html" class="el_package">geco</a> &gt; <span class="el_source">LoginGenerator.java</span></div><h1>LoginGenerator.java</h1><pre class="source lang-java linenums">package geco;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -14,9 +16,9 @@ public class LoginGenerator {
      * Construit un login generator
      * @param loginService le service de login
      */
-<span class="nc" id="L17">    public LoginGenerator(LoginService loginService) {</span>
-<span class="nc" id="L18">        this.loginService = loginService;</span>
-<span class="nc" id="L19">    }</span>
+<span class="fc" id="L19">    public LoginGenerator(LoginService loginService) {</span>
+<span class="fc" id="L20">        this.loginService = loginService;</span>
+<span class="fc" id="L21">    }</span>
 
     /**
      * Genere un login unique a partir d'un nom et d'un prenom en prenant la premiere lettre du prenom, concatenee avec
@@ -34,14 +36,16 @@ public class LoginGenerator {
      * @return le login genere
      */
     public String generateLoginForNomAndPrenom(String nom, String prenom) {
-<span class="nc" id="L37">        String p = deAccent(prenom.substring(0,1).toUpperCase());</span>
-<span class="nc" id="L38">        String n = deAccent(nom.substring(0,3).toUpperCase());</span>
-<span class="nc" id="L39">        String login = p+n ;</span>
-<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (loginService.loginExists(login)) {</span>
-<span class="nc" id="L41">            login = login + &quot;1&quot; ;</span>
+<span class="fc" id="L39">        String p = deAccent(prenom.substring(0,1).toUpperCase());</span>
+<span class="fc" id="L40">        String n = deAccent(nom.substring(0,3).toUpperCase());</span>
+<span class="fc" id="L41">        String login = p+n ;</span>
+<span class="fc" id="L42">        List&lt;String&gt; loginsPrefixes = new ArrayList&lt;String&gt;();;</span>
+<span class="fc" id="L43">        loginsPrefixes = loginService.findAllLoginsStartingWith(login);</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (loginService.loginExists(login)) {</span>
+<span class="fc" id="L45">            login = login + loginsPrefixes.size() ;</span>
         }
-<span class="nc" id="L43">        loginService.addLogin(login);</span>
-<span class="nc" id="L44">        return login;</span>
+<span class="fc" id="L47">        loginService.addLogin(login);</span>
+<span class="fc" id="L48">        return login;</span>
     }
 
     /**
@@ -51,9 +55,9 @@ public class LoginGenerator {
      * @return la chaine de caractere sans accents
      */
     private String deAccent(String str) {
-<span class="nc" id="L54">        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);</span>
-<span class="nc" id="L55">        Pattern pattern = Pattern.compile(&quot;\\p{InCombiningDiacriticalMarks}+&quot;);</span>
-<span class="nc" id="L56">        return pattern.matcher(nfdNormalizedString).replaceAll(&quot;&quot;);</span>
+<span class="fc" id="L58">        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);</span>
+<span class="fc" id="L59">        Pattern pattern = Pattern.compile(&quot;\\p{InCombiningDiacriticalMarks}+&quot;);</span>
+<span class="fc" id="L60">        return pattern.matcher(nfdNormalizedString).replaceAll(&quot;&quot;);</span>
     }
 
 
