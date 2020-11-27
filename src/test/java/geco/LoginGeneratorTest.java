@@ -31,6 +31,10 @@ public class LoginGeneratorTest extends TestCase {
         //CT4
         loginGenerator.generateLoginForNomAndPrenom("Dùrand","Paul");
         assertTrue(loginService.loginExists("PDUR"));
+
+        //CT
+        loginGenerator.generateLoginForNomAndPrenom("Du","Paul");
+        assertTrue(loginService.loginExists("PDU"));
     }
 
 }
